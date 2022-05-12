@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>videojs-contrib-hls embed</title>
+  
+  <!--
+
+  Uses the latest versions of video.js and videojs-http-streaming.
+
+  To use specific versions, please change the URLs to the form:
+
+  <link href="https://unpkg.com/video.js@6.7.1/dist/video-js.css" rel="stylesheet">
+  <script src="https://unpkg.com/video.js@6.7.1/dist/video.js"></script>
+  <script src="https://unpkg.com/@videojs/http-streaming@0.9.0/dist/videojs-http-streaming.js"></script>
+
+  -->
+
+
+  
+</head>
+<body>
+  <h1>Video.js Example Embed</h1>
+
+  <video-js id="my_video_1" class="vjs-default-skin" controls preload="auto" width="640" height="268">
+    <source src="https://d2fzn1ncm9z396.cloudfront.net/f801f0f5-108d-4f96-a33f-96c3257b51c6/AppleHLS1/cont.m3u8" type="application/x-mpegURL">
+  </video-js>
+
+  <script>
+    videojs.options.flash.swf = "http://vjs.zencdn.net/4.3/video-js.swf"
+  </script>
+
+  <script src="videojs.watermark.js"></script>
+
+  <script src="https://unpkg.com/video.js/dist/video.js"></script>
+  <script src="https://unpkg.com/@videojs/http-streaming/dist/videojs-http-streaming.js"></script>
+  <link href="videojs.watermark.css" rel="stylesheet">
+  <link href="https://unpkg.com/video.js/dist/video-js.css" rel="stylesheet">
+  
+  <script>
+
+    vid = document.getElementById("my_video_1");
+    var player = videojs('my_video_1');
+
+    player.on("timeupdate", myfun);
+
+    function myfun() {
+        console.log("player.currentTime()", player.currentTime());
+    }
+
+    //재생 시작 
+    player.on("play", playStarted);
+
+    function playStarted() {
+        console.log("play started -- player.currentTime()", player.currentTime());
+    }
+
+    //일시 중지
+    player.on("pause", paused);
+
+    function paused() {
+        console.log("play paused -- player.currentTime()", player.currentTime());
+    }
+
+    //종료
+    player.on("ended", ended);
+
+    function ended() {
+        console.log("play ended -- player.currentTime()", player.currentTime());
+    }
+
+    player.watermark({
+      file: 'dsharelog.svg',
+      xpos: 50,
+      ypos: 50,
+      xrepeat: 0,
+      opacity: 0.1
+    });  
+
+  </script>
+  
+</body>
+</html>

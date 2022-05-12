@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Video.js Example with AWS Cloudfront HLS and Video.js Watermark</title>
+
+
+  <script src="https://unpkg.com/video.js/dist/video.js"></script>
+  <script src="https://unpkg.com/@videojs/http-streaming/dist/videojs-http-streaming.js"></script>
+  <link href="videojs.watermark.css" rel="stylesheet">
+  <link href="https://unpkg.com/video.js/dist/video-js.css" rel="stylesheet">
+
+  <script src="videojs.watermark.js"></script>
+  <style>
+    p {
+      background-color: #eee;
+      border: thin solid #777;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <p>Video.js example with AWS Cloudfront HLS and Video.js watermark plugin</p>
+
+  <video id='video_1' class='video-js vjs-default-skin' width='640' height='360' preload="auto" 
+     data-setup='{ "controls": true, "autoplay": false, "preload": "auto" }'> 
+    <source src="https://d2fzn1ncm9z396.cloudfront.net/f801f0f5-108d-4f96-a33f-96c3257b51c6/AppleHLS1/cont.m3u8" type="application/x-mpegURL">
+  </video>
+
+  <script>
+    // video.js 초기화 
+    var my_video_id = videojs('video_1');
+
+    //실시간 재생시간 표시 
+    my_video_id.on("timeupdate", () => {
+        console.log("my_video_id.currentTime()", my_video_id.currentTime());
+    });
+
+    //재생 시작 
+    my_video_id.on("play", () => {
+        console.log("play started -- player.currentTime()", my_video_id.currentTime());
+    });
+
+    //일시 중지
+    my_video_id.on("pause", () => {
+        console.log("play paused -- player.currentTime()", my_video_id.currentTime());
+    });
+
+    //종료
+    my_video_id.on("ended", () => {
+        console.log("play ended -- player.currentTime()", my_video_id.currentTime());
+    });
+
+    //클라이언트 사이드 워터마킹
+    my_video_id.watermark({
+      file: 'logo.png',
+      xpos: 50,
+      ypos: 50,
+      xrepeat: 0,
+      opacity: 0.8
+    });
+    
+    
+
+  </script>
+
+</body>
+</html>
